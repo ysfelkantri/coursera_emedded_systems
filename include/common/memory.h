@@ -1,10 +1,10 @@
 /******************************************************************************
- * Copyright (C) 2017 by Alex Fosdick - University of Colorado
+ * Copyright (C) 2020 EL KANTRI Youssef ENSA of Fez 
  *
  * Redistribution, modification or use of this software in source or binary
  * forms is permitted as long as the files maintain this copyright. Users are 
  * permitted to modify this and use it to learn about the field of embedded
- * software. Alex Fosdick and the University of Colorado are not liable for any
+ * software. EL KANTRI Youssef is not liable for any
  * misuse of this material. 
  *
  *****************************************************************************/
@@ -15,13 +15,48 @@
  * This header file provides an abstraction of reading and
  * writing to memory via function calls. 
  *
- * @author Alex Fosdick
- * @date April 1 2017
+ * @author EL KANTRI Youssef 
+ * @date may 2020
  *
  */
+#include <stdint.h>
+#include <stdlib.h>
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
 
+/**
+ * @brief This function takes two byte pointers (one source and one 	  
+destination) and a length of bytes to move from the source location to the destination. 
+ **/
+uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * @brief This function takes two byte pointers (one source and one destination) and a length of bytes to copy from the source location to the destination
+ **/
+uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * @brief This function take number of words to allocate in dynamic memory 
+ **/
+int32_t * reserve_words(size_t length);
+
+/**
+ * @brief free a dynamic memory allocation by providing the pointer src to the function 
+ **/
+void free_words(uint32_t * src);
+
+/**
+ * @brief This should take a pointer to a source memory location, a length in bytes and set all locations of that memory to a given value 
+ **/
+uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value);
+/**
+ * @brief This function take a pointer to a memory location, a length in bytes and zero out all of the memory. 
+ **/
+uint8_t * my_memzero(uint8_t * src, size_t length);
+/**
+ * @brief This function take a pointer to a memory location and a length in bytes and reverse the order of all of the bytes.
+ **/
+uint8_t * my_reverse(uint8_t * src, size_t length);
 /**
  * @brief Sets a value of a data array 
  *
@@ -89,5 +124,4 @@ void set_all(char * ptr, char value, unsigned int size);
  * @return void.
  */
 void clear_all(char * ptr, unsigned int size);
-
 #endif /* __MEMORY_H__ */

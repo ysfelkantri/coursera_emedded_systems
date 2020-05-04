@@ -1,5 +1,11 @@
 /******************************************************************************
- * Copyright (C) 2017 by EL KANTRI Youssef - ENSA of Fez, Morocco
+ * Copyright (C) 2020 by EL KANTRI Youssef - ENSA of Fez
+ *
+ * Redistribution, modification or use of this software in source or binary
+ * forms is permitted as long as the files maintain this copyright. Users are 
+ * permitted to modify this and use it to learn about the field of embedded
+ * software. EL KANTRI Youssef is not liable for any
+ * misuse of this material. 
  *
  *****************************************************************************/
 /**
@@ -10,30 +16,31 @@
  *
  */
 
-
-
 #include <stdio.h>
 #include "stats.h"
 #include <stdlib.h>
+#include "platform.h"
 
 /* Size of the Data Set */
 #define SIZE (40)
 
 void print_statistics(unsigned char* test, unsigned int size_of_array){
-  printf("*****************************************\n");
-  printf("*\tmedian  \t : %d \t\t*\n", find_median(test,size_of_array));
-  printf("*\tmean    \t : %d \t\t*\n", find_mean(test,size_of_array));
-  printf("*\tmaximum \t : %d \t\t*\n", find_maximum(test,size_of_array));
-  printf("*\tminimum \t : %d \t\t*\n", find_minimum(test,size_of_array));
-  printf("*****************************************\n");
+  PRINTF("*****************************************\n");
+  PRINTF("*\tmedian  \t : %d \t\t*\n", find_median(test,size_of_array));
+  PRINTF("*\tmean    \t : %d \t\t*\n", find_mean(test,size_of_array));
+  PRINTF("*\tmaximum \t : %d \t\t*\n", find_maximum(test,size_of_array));
+  PRINTF("*\tminimum \t : %d \t\t*\n", find_minimum(test,size_of_array));
+  PRINTF("*****************************************\n");
 }
 
 
 void print_array(unsigned char* test, unsigned int size_of_array){
-  printf("\tvalues of my array are : \n*****************************************\n");
+#ifdef VERBOSE
+  PRINTF("\tvalues of my array are : \n*****************************************\n");
   for (int i = 0;i<size_of_array;i++)
-    printf("*\tvalue at index %d : %d\t\t*\n",i,test[i]);
-  printf("*****************************************\n");
+    PRINTF("*\tvalue at index %d : %d\t\t*\n",i,test[i]);
+  PRINTF("*****************************************\n");
+#endif
 }
 
 
@@ -88,17 +95,4 @@ void sort_array(unsigned char* test, unsigned int size_of_array) {
     }
   }
 }
-
-void main() {
-
-  unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
-                              114, 88,   45,  76, 123,  87,  25,  23,
-                              200, 122, 150, 90,   92,  87, 177, 244,
-                              201,   6,  12,  60,   8,   2,   5,  67,
-                                7,  87, 250, 230,  99,   3, 100,  90};
-
-  print_statistics(test,SIZE);
-  print_array(test,SIZE);
-}
-
 

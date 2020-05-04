@@ -9,21 +9,9 @@
 #
 #*****************************************************************************
 
-#------------------------------------------------------------------------------
-# <Put a Description Here>
-#
-# Use: make [TARGET] [PLATFORM-OVERRIDES]
-#
-# Build Targets:
-#      <Put a description of the supported targets here>
-#
-# Platform Overrides:
-#      <Put a description of the supported Overrides here
-#
-#------------------------------------------------------------------------------
 include sources.mk
 
-TARGET = c1m2
+TARGET = c1FinalAssessment
 
 # Platform Overrides -DMSP432 or -DHOST
 ifeq ($(PLATFORM),HOST)
@@ -46,20 +34,18 @@ else
 	LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
 	CFLAGS = -mcpu=$(CPU) $(ARCH) --specs=$(SPECS) -Wall -Werror -g -O0 -std=c99
 	# Platform Specific Flags //done but the path 
-	LINKER_FILE = ../msp432p401r.lds
+	LINKER_FILE = msp432p401r.lds
 endif
 #arm-none-eabi-gcc -I../include/common -I../include/msp432 -I../include/CMSIS -c sys* -mcpu=cortex-m4 -mthumb -march=armv7e-m -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.specs -Wall -Werror -g -O0 -std=c99 -o sys.o -DMSP432
-
-
 
 # obj file generation
 OBJS = $(SOURCES:.c=.o)
 
 %.i : %.c 
-	$(CC) $(INCLUDES) -E $< $(CFLAGS) -o $@ -D$(PLATFORM)
+	$(CC) $(INCLUDES) -E $< $(CFLAGS) -o $@ -D$(PLATFORM) -DCOURSE1 -DVERBOSE
 
 %.s : %.c
-	$(CC) $(INCLUDES) -S $< $(CFLAGS) -D$(PLATFORM)
+	$(CC) $(INCLUDES) -S $< $(CFLAGS) -o $@ -D$(PLATFORM) -DCOURSE1 -DVERBOSE
 
 %.asm : %.o
 	$(DUMP) -S $< > $@
@@ -68,8 +54,8 @@ OBJS = $(SOURCES:.c=.o)
 compile-all: $(OBJS)
 
 %.o : %.c 
-	$(CC) $(INCLUDES) -MM $< > $(patsubst %.c,%.dep,$<) -D$(PLATFORM) 
-	$(CC) $(INCLUDES) -c $< $(CFLAGS) -o $@ -D$(PLATFORM) 
+	$(CC) $(INCLUDES) -MM $< > $(patsubst %.c,%.dep,$<) -D$(PLATFORM) -DCOURSE1 -DVERBOSE
+	$(CC) $(INCLUDES) -c $< $(CFLAGS) -o $@ -D$(PLATFORM) -DCOURSE1 -DVERBOSE
 	
 	
 .PHONY: build

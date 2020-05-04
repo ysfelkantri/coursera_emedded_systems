@@ -14,14 +14,14 @@ INCLUDES =
 SOURCES = 
 
 ifeq ($(PLATFORM),HOST)
-SOURCES = main.c memory.c
-INCLUDES = -I../include/common
-$(info $$var is [${INCLUDES}])
-else
-SOURCES = $(wildcard *.c)
-	# Add your include paths to this variable
-INC = $(wildcard ../include/*)
-INCLUDES = $(addprefix -I,$(INC))
+SOURCES = src/main.c src/memory.c src/data.c src/stats.c src/course1.c
+INCLUDES = -Iinclude/common
 #$(info $$var is [${INCLUDES}])
+else
+SOURCES = $(wildcard src/*)
+# Add your include paths to this variable
+INC = $(wildcard include/*)
+INCLUDES = $(addprefix -I,$(INC))
+$(info $$var is [${INCLUDES}])
 endif
 
